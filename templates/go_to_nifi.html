@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Nifi</title>
+</head>
+<body>
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+      <nav class="my-3 my-md-0 me-md-3">
+        <a class="p-3 text-white" href="">Главная</a>
+        <a class="p-3 text-white" href="">About</a>
+      </nav>
+    </header>
+    <div class = "container mt-5">
+        <form method="post">
+            <input type="submit" class="btn btn-success" value="Запустить nifi">
+        </form>
+        <!--action="http://localhost:8080/nifi" -->
+    </div>
+</body>
+</html>
