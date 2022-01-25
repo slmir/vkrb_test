@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/product/">
+
+
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>1233</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <style>
+
+        / ** Новая кнопка ** /
+
+        #addVar{
+            margin:0 0 0 52px;
+            padding:5px;
+            display:inline-block;
+            background-color:#3A9668;
+            color:#f1f1f1;
+            border:1px solid #005;
+            border-radius: 4px;
+        }
+
+        / ** Кнопка удаления ** /
+
+
+        #addVar:hover, .removeVar:hover{
+            cursor: pointer;
+        }
+
+        .alignRight{
+            text-align: right;
+        }
+
+        input, textarea{
+            padding:5px;
+            font-size: 16px;
+        }
+
+        select{
+            padding:5px;
+            font-size: 16px;
+        }
+
+        .button_plus{
+            background-color:#008000;
+            border:1px solid #005;
+            border-radius: 4px;
+            height:20px;
+            width:50px;
+        }
+
+        .removeVar{
+            background-color:#FF0000;
+            margin:auto;
+            padding:5px;
+            display:inline-block;
+            border:1px solid #005;
+            border-radius: 4px;
+        }
+
+    </style>
+
+    <script>
+
+        // Количество начальных параметров
+        var varCount = 1;
+        $(function () {
+          // Новое нажатие кнопки
+            $('#addVar').on('click', function(){
+                varCount++;
+                document.getElementById('columns_count').value=''+varCount+'';
+                $node = '<div class="input-group mb-3">'
+                  + '<select name="column_select'+varCount+'" class="form-control" id="column_select'+varCount+'">{% for p in columns %}<option value="{{ p.id }}">{{ p.column_name }}</option>{% endfor %}</select>'
+                  + '<span class = "removeVar"> Удалить </span> </div>';
+
+            // Новый элемент формы добавляется перед кнопкой "новая"
+                $(this).parent().before($node);
+            });
+
+          // Удалить нажатие кнопки
+            $('form').on('click', '.removeVar', function(){
+                if (varCount > 1) {
+                    $(this).parent().remove();
+                    varCount--;
+                    document.getElementById('columns_count').value='Число столбцов='+varCount+'';
+                };
+          });
+        });
+    </script>
+
+</head>
+
+<!--
+varCount--;
+            document.getElementById('columns_count').value='Число столбцов='+varCount+'';
+            $node = '<p>'
+              + <span id="addVar">[+]</span> </p>';
+            $(this).parent().before($node);
+-->
+<body>
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+      <nav class="my-3 my-md-0 me-md-3">
+        <a class="p-3 text-white" href="">Главная</a>
+        <a class="p-3 text-white" href="">About</a>
+      </nav>
+    </header>
+    <div class = "container mt-5">
+        <form action="{{ url_for('connection_check') }}" method="post">
+
+            <!--<p><select onchange="this.form.submit()" name="connection_str" class="select form-control">
+              {% for p in posts %}
+              <option value="{{ p.id }}">{{ p.conn_name }}</option>
+              {% endfor %}
+            </select>
+            </p>-->
+            <label> Выберите базу данных: </label>
+            <div class="input-group mb-3">
+              <!--<input type="text" class="form-control" placeholder="Выберите базу данных..." aria-label="Выберите базу данных..." aria-describedby="button-addon2">-->
+                <select name="connection_str" class="form-control" aria-label="Выберите базу данных..." aria-describedby="button-addon2">
+                        {% for k in conn_def %}
+                            <option selected value="{{ k.id }}">{{ k.conn_name }}</option>
+                        {% endfor %}
+                        {% for p in posts %}
+                            <option value="{{ p.id }}">{{ p.conn_name }}</option>
+                        {% endfor %}
+                </select>
+                <!--<input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">-->
+                <input type="submit" name="conn_select" class="btn btn-outline-secondary" id="conn_select" value="Ок!">
+            </div>
+
+            <!--<div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <p><input onchange="this.form.submit()" type="search" name="connection_str" list="text">
+                        <datalist id="text">
+                            {% for p in posts %}
+                                <option value="{{ p.conn_name}}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+                </div>
+            </div>
+            {% for p in posts %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Connection_name:</strong> {{ p.conn_name}}
+             {% endfor %}
+            {% for p in tables %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Table name:</strong> {{ p.table_name}}
+             {% endfor %}
+            {% for p in columns %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Table name:</strong> {{ p.column_name}}
+             {% endfor %}
+            <input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">
+            <hr>
+             <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <p><input onchange="this.form.submit()" type="search" name="table_select" list="text">
+                        <datalist id="text_table">
+                            {% for p in tables %}
+                                <option value="{{ p.table_name }}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+                </div>
+            </div>
+            -->
+            <label> Выберите таблицу: </label>
+            <div class="input-group mb-3">
+              <!--<input type="text" class="form-control" placeholder="Выберите базу данных..." aria-label="Выберите базу данных..." aria-describedby="button-addon2">-->
+              <select name="table_select" class="form-control" aria-label="Выберите таблицу..." aria-describedby="button-addon2">
+                  {% for k in table_def %}
+                        <option selected value="{{ k.id }}">{{ k.table_name }}</option>
+                  {% endfor %}
+                  {% for p in tables %}
+                        <option value="{{ p.id }}">{{ p.table_name }}</option>
+                  {% endfor %}
+                </select>
+                <!--<input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">-->
+                <input type="submit" name="table_select" class="btn btn-outline-secondary" id="table_select" value="Ок!">
+            </div>
+            <!--<select name="table_select" class="form-control">
+                  {% for p in tables %}
+                  <option value="{{ p.id }}">{{ p.table_name }}</option>
+                  {% endfor %}
+            </select>-->
+
+            <hr>
+
+            <label> Выберите столбцы: </label>
+            <input name="columns_count" id="columns_count" value="1">
+            <div id="container">
+                <div class="input-group mb-3">
+                    <!--<label> Столбец 1: </label>-->
+                    <div class="input-group mb-3">
+                        <select name="column_select1" class="form-control" id="column_select1">
+                            {% for p in columns %}
+                                <option value="{{ p.id }}">{{ p.column_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="removeVar"> Удалить </span>
+                    </div>
+                    <br>
+                    <div class="button mb-4">
+                        <span class="button_plus" id="addVar"> Добавить! </span>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <input type="submit" name="column_select_submit" class="btn btn-outline-secondary" id="column_select_submit" value="Подтвердить!">
+
+             <hr>
+
+             <hr>
+            <div class="form-group">
+                <label>Содержание запроса:</label>
+
+                {% for p in listing_column %}
+                    <strong>ID:</strong> {{ p.id }}
+                    <strong>Column_name:</strong> {{ p.col_name}}
+                    <br>
+                {% endfor %}
+
+                <!--<input type="text" id="select_text" value="{% for p in listing_column %} {{ p.id }} -- {{ p.col_name }} {% endfor %}">
+                <p><textarea class="form-control" id="select_textarea" rows="5" >
+
+                </textarea></p>-->
+            </div>
+<!--
+            <p><input type="search" name="connection_str" list="connect">
+                <datalist id="connect">
+                    {% for p in posts %}
+                        <option value="{{ p.conn_name}}"></option>
+                    {% endfor %}
+                </datalist>
+            </p>
+            <p><input type="search" name="table_str" list="table">
+                <datalist id="table">
+                    {% for p in tables %}
+                        <option value="{{ p.table_name}}"></option>
+                    {% endfor %}
+                </datalist>
+            </p>
+
+            {% for p in posts %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Connection_name:</strong> {{ p.conn_name}}
+             {% endfor %}
+            <input type="text" name="connection_str" id="connection_str" class="form-control"><br>
+            <input type="text" name="login_str" id="login_str" class="form-control"><br>
+            <input type="text" name="password_str" id="password_str" class="form-control"><br>-->
+            <input type="submit" name="button_conn" class="btn btn-success">
+        </form>
+        <!--action="http://localhost:8080/nifi" -->
+    </div>
+</body>
+</html>

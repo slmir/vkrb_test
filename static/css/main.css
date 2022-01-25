@@ -1,7 +1,13 @@
-form {
+.all_f {
     margin-left:30%;
     width:600px;
     margin-top:50px;
+}
+
+.columns_selec {
+    margin-left:10%;
+    margin-right:10%;
+    width:1200px;
 }
 
 table {
