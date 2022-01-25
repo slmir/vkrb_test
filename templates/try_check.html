@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <style>
+
+        #container{
+
+            width:380px;
+
+            margin:20px auto;
+
+            padding:15px;
+
+            background-color:#eee;
+
+          border-radius: 15px;
+
+        }
+
+        / ** Новая кнопка ** /
+
+        #addVar{
+
+            margin:0 0 0 52px;
+
+            padding:5px;
+
+            display:inline-block;
+
+            background-color:#3A9668;
+
+            color:#f1f1f1;
+
+            border:1px solid #005;
+
+            border-radius: 4px;
+
+        }
+
+        / ** Кнопка удаления ** /
+
+        .removeVar{
+
+            margin:auto;
+
+            padding:5px;
+
+            display:inline-block;
+
+            background-color:#B02109;
+
+            color:#f1f1f1;
+
+            border:1px solid #005;
+
+          border-radius: 4px;
+
+        }
+
+
+
+        #addVar:hover, .removeVar:hover{
+
+            cursor: pointer;
+
+        }
+
+
+
+        .alignRight{
+
+            text-align: right;
+
+        }
+
+
+
+        input, textarea{
+
+            padding:5px;
+
+            font-size: 16px;
+
+        }
+
+    </style>
+
+    <script>
+
+        // Количество начальных параметров
+
+        var varCount = 2;
+
+
+
+        $(function () {
+
+          // Новое нажатие кнопки
+
+            $('#addVar').on('click', function(){
+
+                varCount++;
+
+                $node = '<p><label for="var'+varCount+'"> Проект'+varCount+': </label>'
+
+                  + '<input type="text" name="var'+varCount+'" id="var'+varCount+'">'
+
+                  + '<span class = "removeVar"> Удалить </span> </p>';
+
+            // Новый элемент формы добавляется перед кнопкой "новая"
+
+                $(this).parent().before($node);
+
+            });
+
+
+
+          // Удалить нажатие кнопки
+
+          $('form').on('click', '.removeVar', function(){
+
+            $(this).parent().remove();
+
+            //varCount--;
+
+          });
+
+        });
+
+    </script>
+
+    <script>
+        function addFields(){
+            // Number of inputs to create
+            var number = document.getElementById("member").value;
+            // Container <div> where dynamic content will be placed
+            var container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = "member" + i;
+                container.appendChild(input);
+                // Append a line break
+                container.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+
+      <form id="myForm" method="post">
+
+        <p>
+
+          <label for="var1"> Пункт 1: </label>
+
+          <input type="text" name="var1" id="var1">
+
+          <span class="removeVar"> Удалить </span>
+
+        </p>
+
+        <p>
+
+          <label for="var2"> Пункт 2: </label>
+
+          <input type="text" name="var2" id="var2">
+
+          <span class="removeVar"> Удалить </span>
+
+        </p>
+
+        <p><span id="addVar"> Добавить новый элемент </span> </p>
+
+        <p class="alignRight"><input type="submit" value="Отправить"></p>
+
+      </form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/product/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chief-slider-with-prefixes.min.css') }}">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Connection</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+
+
+
+    <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <style>
+
+        / ** Новая кнопка ** /
+
+        * { margin: 0; padding: 0; }
+        p { padding: 10px; }
+        #left { left: 20; width: 50%; }
+        #right { right: 20;  width: 50%; }
+
+        #addVar{
+            margin:0 0 0 52px;
+            padding:5px;
+            display:inline-block;
+            background-color:#3A9668;
+            color:#f1f1f1;
+            border:1px solid #005;
+            border-radius: 4px;
+        }
+
+        / ** Кнопка удаления ** /
+
+
+        #addVar:hover, .removeVar:hover{
+            cursor: pointer;
+        }
+
+        .alignRight{
+            text-align: right;
+        }
+
+        input, textarea{
+            padding:5px;
+            font-size: 16px;
+        }
+
+        select{
+            padding:5px;
+            font-size: 16px;
+        }
+
+        .addVar{
+            background-color:#008000;
+            border:1px solid #005;
+            border-radius: 4px;
+            height:40px;
+            text-align: center;
+            width:80px;
+        }
+
+        .column_out_aft_sumbt{
+            width:800px;
+            background-color:#008000;
+            border:1px solid #005;
+            border-radius: 4px;
+            text-align: center;
+            height:30px;
+        }
+
+        .column_svern_aft_sumbt{
+            background-color:#00C000;
+            border:1px solid #005;
+            text-align: center;
+            border-radius: 4px;
+            height:30px;
+            width:400px;
+        }
+
+        .removeVar{
+            background-color:#FF0000;
+            margin:auto;
+            padding:5px;
+            text-align: center;
+            display:inline-block;
+            border:1px solid #005;
+            border-radius: 4px;
+        }
+
+    </style>
+
+    <script>
+         $(function () {
+          // Новое нажатие кнопки
+            $('#column_select_submit').on('click', function(){
+                //alert("Clear!");
+                var text = form.getElementsById('select_textarea').value;
+                for (var i = 0; i<text.length; i++)
+                    text[i].value= '';
+
+                form.getElementsById('select_textarea').value = text;
+            });
+         });
+
+
+    </script>
+
+    <script>
+
+        // Количество начальных параметров
+        var varCount = 1;
+        var varColCnt = 1;
+        var varColCntSvern = 1;
+        $(function () {
+
+
+           // $('form').on('load','.selected_column_id_str',function(){
+           //     alert(1);
+           // });
+          // Новое нажатие кнопки
+            $('form').on('click', '.addVar', function(){
+                var vvarcount = document.getElementById('columns_count').value;
+                vvarcount++;
+                document.getElementById('columns_count').value = vvarcount;
+                //varCount++;
+                //document.getElementById('columns_count').value=varCount;
+                // alert(vvarcount);
+                $node = '<div class="input-group mb-3">'
+                  + '<select name="column_select'+vvarcount+'" class="form-control" id="column_select'+vvarcount+'">{% for p in columns %}<option value="{{ p.id }}">{{ p.column_name }}</option>{% endfor %}</select>'
+                  + '<p>      </p>'
+                  + '<span class = "removeVar"> Удалить </span> </div>';
+
+            // Новый элемент формы добавляется перед кнопкой "новая"
+                $(this).parent().before($node);
+            });
+
+          // Удалить нажатие кнопки
+            $('form').on('click', '.removeVar', function(){
+                //alert(varCount);
+                var vvarcount = document.getElementById('columns_count').value;
+                //alert(vvarcount);
+                if (vvarcount > 1) {
+                    $(this).parent().remove();
+                    vvarcount--;
+                    document.getElementById('columns_count').value=vvarcount;
+                };
+            });
+            $('form').on('click', '.column_out_aft_sumbt', function(){
+                //document.getElementById('columns_out').value = 1;
+                varColCnt = document.getElementById('columns_count_def').value;
+                document.getElementById('columns_count').value = varColCnt;
+                //varColCnt++;
+                //var container = document.getElementById('container');
+                var stri = '';
+                var numi = Number(0);
+                //alert(varColCnt);
+                //$node = '<div class="input-group mb-3">'
+                //      + '<select class="form-control" id="column_select11">{% for key in column_def %}{% for p in columns %}{% if column_def[key]==p.column_name %}<option value="{{ p.id }}">{{ key }} --- {{ column_def[key] }} --- {{ p.id }} --- {{ p.column_name }}</option>{% endif %}{% endfor %}{% endfor %}</select>'
+                //$(this).parent().before($node);
+                for (n=1;n<varColCnt;n++){
+                    let numi = Number(n);
+                    numi++;
+                    var columnsId = {{ columns_id|safe }};
+
+                    var collumns = {
+                      "1": "col_2",
+                      "2": "col_4",
+                      "3": "col_3"
+                    }
+
+                    $node = '<div class="input-group mb-3" id="container'+(n+1)+'">'
+                      + '<select name="column_select'+(n+1)+'" class="form-control" id="column_select'+(n+1)+'">for (var key in collumns) {if (collumns[key] = numi){alert(numi)}<option value=key>collumns[key]</option></select>
+
+                      {% for iter in column_def %}{% if iter=='+numi+' %}{% for key in column_def[iter] %}<option selected value="{{ key }}">{{ iter }} - {{ key }} -- {{ column_def[iter][key] }}</option>{% endfor %}{% endif %}{% endfor %}{% for p in columns %}{% if p.id==columns_id['+numi+'] %}{# continue #}{% else %}<option value="{{ p.id }}">{{ p.column_name }}</option>{% endif %}{% endfor %}</select>'
+                      + '<p>      </p>'
+                      + '<span class = "removeVar"> Удалить </span> </div>';
+
+
+                   // $node = '<div class="input-group mb-3" id="container'+(n+1)+'">'
+                   //   + '<select name="column_select'+(n+1)+'" class="form-control" id="column_select'+(n+1)+'">{% for iter in column_def %}{% if iter=='+numi+' %}{% for key in column_def[iter] %}<option selected value="{{ key }}">{{ iter }} - {{ key }} -- {{ column_def[iter][key] }}</option>{% endfor %}{% endif %}{% endfor %}{% for p in columns %}{% if p.id==columns_id['+numi+'] %}{# continue #}{% else %}<option value="{{ p.id }}">{{ p.column_name }}</option>{% endif %}{% endfor %}</select>'
+                   //   + '<p>      </p>'
+                   //  + '<span class = "removeVar"> Удалить </span> </div>';
+
+                // Новый элемент формы добавляется перед кнопкой "новая"
+                    $(this).parent().before($node);
+                }
+
+                //document.getElementById("column_out_aft_sumbt").disabled = true;
+
+                //var newDiv = document.createElement('div');
+                //newDiv.innerHTML = '<p>TESTTTT</p>';
+                $node = '<div class="input-group mb-3">'
+                      + '<span class="addVar" id="newAddVarCol"> Добавить! </span></div>'
+                      + '<p>      </p>'
+                      + '<span class="column_svern_aft_sumbt" id="column_svern_aft_sumbt"> Свернуть </span>';
+
+                $(this).parent().after($node);
+
+                document.getElementById("column_out_aft_sumbt").remove();
+
+            });
+            $('form').on('click', '.column_svern_aft_sumbt', function(){
+                varColCntSvern = document.getElementById('columns_count_def').value;
+                for (i=varColCntSvern;i>1;i--){
+                    str1 = "container'+i+'"
+                    //document.getElementById("column_select'+i+'").disabled = true;
+                    document.getElementById(str1).remove();
+                }
+
+                $node = '<div class="input-group mb-3">'
+                      + '<span class="column_out_aft_sumbt" id="column_out_aft_sumbt"> Развернуть </span>';
+
+                $(this).parent().after($node);
+
+                document.getElementById("newAddVarCol").remove();
+                document.getElementById("column_svern_aft_sumbt").remove();
+                //document.getElementById("column_svern_aft_sumbt").hidden = true;
+
+            });
+
+        });
+
+        //container.appendChild(document.createTextNode("column_select " + (i+1)));
+                    // Create an <input> element, set its type and name attributes
+                    //var selectCh = document.createElement("select");
+                    //selectCh.type = "select";
+                    //selectCh.name = "column_select" + i;
+                    //container.appendChild(selectCh);
+                    // Append a line break
+                    //container.appendChild(document.createElement("br"));
+
+
+    </script>
+    <script>
+        // Загрузка страницы
+        // сделать передачу параметра количества столбцов
+
+        var varCount = 1;
+
+        function loadColumns() {
+            varCount = document.getElementById('columns_count').value;
+            alert(varCount);
+        }
+    </script>
+
+
+
+
+
+
+    <!--<link rel="script" href="{{ url_for('static', filename='js/chief-slider.min.js') }}">-->
+    <script src="{{ url_for('static', filename='js/chief-slider.min.js') }}"></script>
+    <!--<script src="../static/js/chief-slider.min.js"></script>
+    <script type="text/javascript" src="../static/js/chief-slider.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/chief-slider.min.js') }}"></script>
+    -->
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const slider = new ChiefSlider('.slider', {
+        loop: false
+      });
+    });
+  </script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+
+    .container_flex {
+      width: 800px;
+      margin: 0 0 100;
+    }
+
+    .slider__container {
+      padding-left: 0;
+      padding-right: 0;
+      display: flex;
+    }
+
+    .slider__items {
+      counter-reset: slide;
+    }
+
+    .slider__item {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+      display:inline-block;
+      flex: 0 0 100%;
+      max-width: 100%;
+      counter-increment: slide;
+      height: 600px;
+      position: relative;
+    }
+
+    .slider__item::before {
+      content: counter(slide) "/2";
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: #fff;
+      font-style: italic;
+      font-size: 32px;
+      font-weight: bold;
+      display: block;
+    }
+
+    .slider__item:nth-child(1) {
+      background-color: #f44336;
+    }
+
+    .slider__item:nth-child(2) {
+      background-color: #9c27b0;
+    }
+
+
+  </style>
+
+
+</head>
+
+<!--
+varCount--;
+            document.getElementById('columns_count').value='Число столбцов='+varCount+'';
+            $node = '<p>'
+              + <span id="addVar">[+]</span> </p>';
+            $(this).parent().before($node);
+
+<body onload="loadColumns()">-->
+<body>
+<!--<script src="{{ url_for('static', filename='js/chief-slider.min.js') }}"></script>
+    <script src="../static/js/chief-slider.min.js"></script>-->
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+      <nav class="my-3 my-md-0 me-md-3">
+        <a class="p-3 text-white" href="">Главная</a>
+        <a class="p-3 text-white" href="">About</a>
+      </nav>
+    </header>
+    <div class = "container mt-5">
+        <form name="all_f" class="all_f" action="{{ url_for('connection_check') }}" method="post">
+            <input name="columns_count_def" id="columns_count_def" value="{{ count_def }}" onchange="false" hidden>
+            <!--<p><select onchange="this.form.submit()" name="connection_str" class="select form-control">
+              {% for p in posts %}
+              <option value="{{ p.id }}">{{ p.conn_name }}</option>
+              {% endfor %}
+            </select>
+            </p>-->
+            <label> Выберите базу данных: </label>
+            <div class="input-group mb-3">
+              <!--<input type="text" class="form-control" placeholder="Выберите базу данных..." aria-label="Выберите базу данных..." aria-describedby="button-addon2">-->
+                <select name="connection_str" class="form-control" aria-label="Выберите базу данных..." aria-describedby="button-addon2">
+                        {% for k in conn_def %}
+                            <option selected value="{{ k.id }}">{{ k.conn_name }}</option>
+                        {% endfor %}
+                        {% for p in posts %}
+                            <option value="{{ p.id }}">{{ p.conn_name }}</option>
+                        {% endfor %}
+                </select>
+                <!--<input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">-->
+                <input type="submit" name="conn_select" class="btn btn-outline-secondary" id="conn_select" value="Ок!">
+            </div>
+
+            <!--<div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <p><input onchange="this.form.submit()" type="search" name="connection_str" list="text">
+                        <datalist id="text">
+                            {% for p in posts %}
+                                <option value="{{ p.conn_name}}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+                </div>
+            </div>
+            {% for p in posts %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Connection_name:</strong> {{ p.conn_name}}
+             {% endfor %}
+            {% for p in tables %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Table name:</strong> {{ p.table_name}}
+             {% endfor %}
+            {% for p in columns %}
+                <strong>ID:</strong> {{ p.id }}
+                <strong>Table name:</strong> {{ p.column_name}}
+             {% endfor %}
+            <input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">
+            <hr>
+             <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <p><input onchange="this.form.submit()" type="search" name="table_select" list="text">
+                        <datalist id="text_table">
+                            {% for p in tables %}
+                                <option value="{{ p.table_name }}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+                </div>
+            </div>
+            -->
+            <label> Выберите таблицу: </label>
+            <div class="input-group mb-3">
+              <!--<input type="text" class="form-control" placeholder="Выберите базу данных..." aria-label="Выберите базу данных..." aria-describedby="button-addon2">-->
+              <select name="table_select" class="form-control" aria-label="Выберите таблицу..." aria-describedby="button-addon2">
+                  {% for k in table_def %}
+                        <option selected value="{{ k.id }}">{{ k.table_name }}</option>
+                  {% endfor %}
+                  {% for p in tables %}
+                        <option value="{{ p.id }}">{{ p.table_name }}</option>
+                  {% endfor %}
+                </select>
+                <!--<input type="submit" name="conn_check" class="btn btn-success" value="Подтвердить выбор базы данных">-->
+                <input type="submit" name="table_select" class="btn btn-outline-secondary" id="table_select" value="Ок!">
+            </div>
+            <!--<select name="table_select" class="form-control">
+                  {% for p in tables %}
+                  <option value="{{ p.id }}">{{ p.table_name }}</option>
+                  {% endfor %}
+            </select>-->
+
+            <hr>
+
+            <!--
+                        <style type="text/css">
+                       * { margin: 0; padding: 0; }
+                       p { padding: 10px; }
+                       #left { position: absolute; left: 0; top: 0; width: 50%; }
+                       #right { position: absolute; right: 0; top: 0; width: 50%; }
+                    </style>
+            </head>
+
+            <body>
+
+        </form>
+            <form name="columns_selec" class="columns_selec" action="{{ url_for('connection_check') }}" method="post">-->
+
+              <div class="container_flex">
+
+                <div class="slider">
+                  <div class="slider__container">
+                    <div class="slider__wrapper">
+                      <div class="slider__items">
+                        <div class="slider__item">
+
+                    <div class="p-5 text-white bg-dark rounded-3">
+                      <h2>Выбрать вручную</h2>
+                            <label> Выберите столбцы: </label>
+                        <div id="container">
+                            <div class="input-group mb-3">
+                                    <div class="input-group mb-3">
+                                        <select name="column_select1" class="form-control" id="column_select1">
+                                            {% for iter in column_def %}
+                                                {% if iter==1 %}
+                                                    {% for key in column_def[iter] %}
+                                                        <option selected value="{{ key }}">{{ column_def[iter][key] }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for p in columns %}
+                                                {% if p.id==columns_id[0] %}
+                                                    {# continue #}
+                                                {% else %}
+                                                    <option value="{{ p.id }}">{{ p.column_name }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <p>      </p>
+                                        <span class="removeVar"> Удалить </span>
+                                    </div>
+                                <br>
+                        {% if count_def>0 %}
+                                <div class="button mb-4">
+                                    <span class="column_out_aft_sumbt" id="column_out_aft_sumbt"> Развернуть \/ </span>
+                                </div>
+                                <br>
+                                <!--<div class="button mb-4">
+                                    <span class="addVar"> Добавить! </span>
+                                </div>
+                                <br>-->
+                        {% else %}
+
+                                <div class="button mb-4">
+                                    <span class="addVar"> Добавить! </span>
+                                </div>
+                                <br>
+
+                        {% endif %}
+                            </div>
+                        </div>
+
+
+                        <input type="submit" name="column_select_submit" class="btn btn-success" id="column_select_submit" value="Подтвердить!">
+                        <input type="number" name="columns_count" id="columns_count" value="1" hidden>
+
+                            <br>
+                                <label>Содержание запроса:</label>
+                                    <textarea class="form-control" placeholder="Ваш запрос..." id="floatingTextarea1" style="height: 160px">
+{% if sp!='' %}{{ sp }}{% else %}Ваш запрос{% endif %}
+                                    </textarea>
+
+
+
+                                    <!--<p><textarea class="form-control" id="select_textarea" name="select_textarea" onchange="0">
+                                        {{ sp }}
+                                    </textarea></p>
+
+                                    {% for p in listing_column %}
+                                        <strong>ID:</strong> {{ p.id }}
+                                        <strong>Column_name:</strong> {{ p.col_name}}
+                                        <br>
+                                    {% endfor %}-->
+
+                                    <!--<input type="text" id="select_text" value="{% for p in listing_column %} {{ p.id }} -- {{ p.col_name }} {% endfor %}">
+                                    <p><textarea class="form-control" id="select_textarea" rows="5" >
+
+                                    </textarea></p>-->
+                                <div class="form-group">
+                                </div>
+
+                    </div>
+                        </div>
+                        <div class="slider__item">
+                        <div class="p-5 bg-light border rounded-3">
+                          <h2>Ввести запрос текстом</h2>
+                            <label>Содержание запроса:</label>
+
+                                <textarea class="form-control" placeholder="Ваш запрос..." id="floatingTextarea2" style="height: 160px">SELECT
+FROM
+                                    </textarea>
+
+
+                                    <!--<textarea class="form-control" id="select_textarea_text" name="select_textarea" onchange="0" rows="6">
+
+                                    </textarea>-->
+                            <br>
+                            <input type="submit" name="column_text_submit" class="btn btn-success" id="column_text_submit" value="Подтвердить!">
+
+
+                      </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <a class="slider__control" data-slide="prev"></a>
+                  <a class="slider__control" data-slide="next"></a>
+                </div>
+
+              </div>
+
+
+            <div class="row align-items-md-stretch">
+
+
+            </div>
+            </form>
+
+        <!--
+                    <p><input type="search" name="connection_str" list="connect">
+                        <datalist id="connect">
+                            {% for p in posts %}
+                                <option value="{{ p.conn_name}}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+                    <p><input type="search" name="table_str" list="table">
+                        <datalist id="table">
+                            {% for p in tables %}
+                                <option value="{{ p.table_name}}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </p>
+
+                    {% for p in posts %}
+                        <strong>ID:</strong> {{ p.id }}
+                        <strong>Connection_name:</strong> {{ p.conn_name}}
+                     {% endfor %}
+                    <input type="text" name="connection_str" id="connection_str" class="form-control"><br>
+                    <input type="text" name="login_str" id="login_str" class="form-control"><br>
+                    <input type="text" name="password_str" id="password_str" class="form-control"><br>-->
+                    <input type="submit" name="button_conn" class="btn btn-success">
+
+        <!--action="http://localhost:8080/nifi" -->
+            </form>
+
+    </div>
+</body>
+</html>
